@@ -11,10 +11,6 @@ services:
         value: production
       - key: APP_DEBUG
         value: "false"
-      - key: APP_URL
-        sync: false
-      - key: APP_KEY
-        sync: false
       - key: APP_LOCALE
         value: ar
       - key: APP_FALLBACK_LOCALE

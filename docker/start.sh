@@ -13,7 +13,11 @@ if [ -z "${APP_KEY:-}" ] || [[ "${APP_KEY}" != base64:* ]]; then
 fi
 
 if [ -z "${APP_URL:-}" ]; then
-  export APP_URL="http://localhost:${PORT:-8000}"
+  if [ -n "${RENDER_EXTERNAL_URL:-}" ]; then
+    export APP_URL="${RENDER_EXTERNAL_URL}"
+  else
+    export APP_URL="http://localhost:${PORT:-8000}"
+  fi
 fi
 
 php artisan config:clear
