@@ -32,22 +32,31 @@ php artisan serve
 | حلب | `nurse.aleppo@clinic.test` | `password` |
 | جسر الشغور | `nurse.jisr@clinic.test` | `password` |
 
-## النشر المجاني على Render
+## النشر المجاني بدون بطاقة بنكية (Serv00)
 
-1. ادفع المشروع إلى GitHub (هذا المستودع).
-2. ادخل [Render](https://render.com) وسجّل بحساب GitHub.
-3. **New +** → **Blueprint** → اختر مستودع `ClinicManager`.
-4. وافق على إنشاء الخدمة من ملف `render.yaml`.
-5. بعد اكتمال البناء ستحصل على رابط عام مثل:
-   `https://clinicmanager.onrender.com`
+الخيار المناسب: **[Serv00](https://www.serv00.com/)**  
+مجاني، بدون إعلانات، و**بدون بطاقة بنكية**، مع PHP + MySQL + SSH.
 
-الرابط يعمل مباشرة للزوار. الخدمة تولّد `APP_KEY` تلقائيًا وتقرأ رابط Render تلقائيًا.
+الخطوات المختصرة:
 
-> الخطة المجانية قد تُوقف الخدمة بعد فترة خمول؛ أول زيارة بعدها تأخذ نصف دقيقة تقريبًا للإقلاع.
+1. سجّل حسابًا على https://www.serv00.com/ (التكلفة `$0`).
+2. من لوحة التحكم أنشئ موقعًا (subdomain مجاني) وقاعدة MySQL.
+3. ارفع المشروع عبر SFTP/SSH.
+4. جهّز ملف `.env` ثم نفّذ:
+
+```bash
+php artisan key:generate
+php artisan migrate --force
+php artisan db:seed --force --class=ClinicSeeder
+```
+
+الدليل الكامل خطوة بخطوة: [deploy/SERV00.md](deploy/SERV00.md)
+
+> ملاحظة: منصات مثل Render غالبًا تطلب بطاقة حتى مع الخطة المجانية؛ لذلك لا نعتمدها هنا.
 
 ## PWA على الجوال
 
 - Android Chrome: قائمة المتصفح → تثبيت التطبيق / إضافة للشاشة الرئيسية
 - iPhone Safari: مشاركة → إضافة إلى الشاشة الرئيسية
 
-ملاحظة: التثبيت على جوال حقيقي يعمل بشكل أفضل مع HTTPS (مثل رابط Render).
+يعمل التثبيت بشكل أفضل مع HTTPS (Serv00 يوفّر شهادة مجانية).
