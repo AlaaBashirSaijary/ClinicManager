@@ -1,0 +1,35 @@
+{
+  "id": "/",
+  "name": "عيادة العيون",
+  "short_name": "عيادة العيون",
+  "description": "إدارة سجلات مرضى عيادة العيون بسهولة على الجوال والكمبيوتر",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f4fafc",
+  "theme_color": "#1287a0",
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["medical", "health", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

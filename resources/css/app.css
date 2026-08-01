@@ -1,0 +1,278 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'IBM Plex Sans Arabic', 'Cairo', ui-sans-serif, system-ui, sans-serif;
+    --color-eye-ink: #0a2540;
+    --color-eye-ink-soft: #3d5a73;
+    --color-eye-sky: #e7f3f8;
+    --color-eye-mist: #f4fafc;
+    --color-eye-aqua: #1287a0;
+    --color-eye-aqua-deep: #0b6073;
+    --color-eye-focus: #1f6fb2;
+    --color-eye-lens: #7ec8d8;
+    --color-eye-danger: #b42318;
+    --color-eye-ok: #0f766e;
+}
+
+@layer base {
+    html {
+        font-size: 18px;
+    }
+
+    body {
+        @apply bg-eye-mist text-eye-ink antialiased;
+        min-height: 100vh;
+        background-color: #f4fafc;
+        background-image:
+            radial-gradient(ellipse 80% 55% at 100% -10%, rgba(18, 135, 160, 0.18), transparent 55%),
+            radial-gradient(ellipse 60% 45% at -5% 110%, rgba(31, 111, 178, 0.12), transparent 50%),
+            radial-gradient(circle at 50% 0%, rgba(126, 200, 216, 0.22), transparent 42%),
+            repeating-linear-gradient(
+                -12deg,
+                transparent,
+                transparent 28px,
+                rgba(10, 37, 64, 0.015) 28px,
+                rgba(10, 37, 64, 0.015) 29px
+            );
+    }
+}
+
+@layer components {
+    .app-shell {
+        @apply relative mx-auto flex min-h-screen max-w-3xl flex-col px-4 py-5 sm:px-6;
+    }
+
+    .brand-mark {
+        @apply relative grid size-12 shrink-0 place-items-center;
+    }
+
+    .brand-mark::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 9999px;
+        background:
+            radial-gradient(circle at 50% 50%, #0a2540 0 18%, #1287a0 19% 42%, #7ec8d8 43% 62%, transparent 63%),
+            conic-gradient(from 210deg, #1f6fb2, #7ec8d8, #1287a0, #1f6fb2);
+        opacity: 0.95;
+        animation: iris-breathe 5s ease-in-out infinite;
+    }
+
+    .brand-mark::after {
+        content: '';
+        position: absolute;
+        inset: 28%;
+        border-radius: 9999px;
+        background: #f4fafc;
+        box-shadow: inset 0 0 0 2px rgba(10, 37, 64, 0.08);
+    }
+
+    .page-enter {
+        animation: rise-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .stagger > * {
+        animation: rise-in 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .stagger > *:nth-child(2) { animation-delay: 70ms; }
+    .stagger > *:nth-child(3) { animation-delay: 140ms; }
+    .stagger > *:nth-child(4) { animation-delay: 210ms; }
+
+    .btn-primary {
+        @apply inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-eye-aqua px-6 py-5 text-xl font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-eye-aqua-deep focus:outline-none focus:ring-4 focus:ring-eye-aqua/30 active:translate-y-0;
+    }
+
+    .btn-secondary {
+        @apply inline-flex w-full items-center justify-center gap-3 rounded-2xl border border-eye-ink/10 bg-white/80 px-6 py-5 text-xl font-bold text-eye-ink transition duration-200 hover:-translate-y-0.5 hover:bg-white focus:outline-none focus:ring-4 focus:ring-eye-ink/10 active:translate-y-0;
+    }
+
+    .btn-accent {
+        @apply inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-eye-focus px-6 py-5 text-xl font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:brightness-95 focus:outline-none focus:ring-4 focus:ring-eye-focus/30 active:translate-y-0;
+    }
+
+    .action-tile-search,
+    .action-tile-new {
+        @apply relative overflow-hidden rounded-[1.75rem] border border-white/50 px-6 py-8 text-right text-white transition duration-300 hover:-translate-y-1 focus:outline-none focus:ring-4;
+        box-shadow: 0 18px 40px -28px rgba(10, 37, 64, 0.45);
+    }
+
+    .action-tile-search::after,
+    .action-tile-new::after {
+        content: '';
+        position: absolute;
+        width: 9rem;
+        height: 9rem;
+        border-radius: 9999px;
+        left: -1.5rem;
+        bottom: -2.5rem;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.28), transparent 68%);
+        pointer-events: none;
+    }
+
+    .action-tile-search {
+        @apply bg-gradient-to-bl from-eye-aqua to-eye-aqua-deep focus:ring-eye-aqua/35;
+    }
+
+    .action-tile-new {
+        @apply bg-gradient-to-bl from-eye-focus to-[#155a96] focus:ring-eye-focus/35;
+    }
+
+    .field-label {
+        @apply mb-2 block text-lg font-bold text-eye-ink;
+    }
+
+    .field-input {
+        @apply w-full rounded-2xl border border-eye-ink/10 bg-white/90 px-5 py-4 text-xl text-eye-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] placeholder:text-eye-ink-soft/45 focus:border-eye-aqua focus:outline-none focus:ring-4 focus:ring-eye-aqua/15;
+    }
+
+    .field-textarea {
+        @apply w-full min-h-36 resize-y rounded-2xl border border-eye-ink/10 bg-white/90 px-5 py-4 text-xl leading-relaxed text-eye-ink placeholder:text-eye-ink-soft/45 focus:border-eye-aqua focus:outline-none focus:ring-4 focus:ring-eye-aqua/15;
+    }
+
+    .surface {
+        @apply rounded-[1.75rem] border border-white/70 bg-white/75 p-6 backdrop-blur-md;
+        box-shadow: 0 20px 50px -36px rgba(10, 37, 64, 0.55);
+    }
+
+    .surface-soft {
+        @apply rounded-[1.75rem] border border-eye-lens/40 bg-eye-sky/70 p-6;
+    }
+
+    .result-row {
+        @apply block rounded-2xl border border-eye-ink/8 bg-white/85 p-5 transition duration-200 hover:-translate-y-0.5 hover:border-eye-aqua/40 hover:bg-white;
+        box-shadow: 0 14px 30px -28px rgba(10, 37, 64, 0.55);
+    }
+
+    .nav-back {
+        @apply inline-flex items-center gap-2 text-lg font-bold text-eye-aqua transition hover:text-eye-aqua-deep;
+    }
+
+    .alert-ok {
+        @apply mb-4 rounded-2xl border border-eye-ok/20 bg-teal-50 px-5 py-4 text-lg font-bold text-eye-ok;
+        animation: rise-in 360ms ease both;
+    }
+
+    .alert-error {
+        @apply mb-4 rounded-2xl border border-eye-danger/20 bg-red-50 px-5 py-4 text-lg font-bold text-eye-danger;
+        animation: rise-in 360ms ease both;
+    }
+
+    .diagnosis-hero {
+        @apply relative overflow-hidden rounded-[1.75rem] border border-eye-aqua/25 bg-gradient-to-bl from-[#dff4f8] via-white to-[#e8f1fb] p-6;
+    }
+
+    .diagnosis-hero::before {
+        content: '';
+        position: absolute;
+        width: 11rem;
+        height: 11rem;
+        border-radius: 9999px;
+        left: -2rem;
+        top: -3rem;
+        background: radial-gradient(circle, rgba(18, 135, 160, 0.18), transparent 70%);
+        animation: iris-breathe 6s ease-in-out infinite;
+    }
+
+    .meta-row {
+        @apply flex flex-wrap items-center justify-between gap-2 border-b border-eye-ink/8 py-3 text-lg last:border-0;
+    }
+}
+
+@keyframes rise-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes iris-breathe {
+    0%, 100% { transform: scale(1); opacity: 0.95; }
+    50% { transform: scale(1.06); opacity: 1; }
+}
+
+.pwa-install-banner {
+        position: fixed;
+        z-index: 50;
+        inset-inline: 1rem;
+        bottom: 1rem;
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 1rem 1.1rem;
+        border-radius: 1.25rem;
+        border: 1px solid rgba(18, 135, 160, 0.25);
+        background: rgba(255, 255, 255, 0.96);
+        color: #0a2540;
+        box-shadow: 0 18px 40px -24px rgba(10, 37, 64, 0.55);
+        animation: rise-in 360ms ease both;
+    }
+
+    .pwa-install-banner__text strong {
+        display: block;
+        font-size: 1.05rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .pwa-install-banner__text p {
+        margin: 0;
+        font-size: 0.95rem;
+        line-height: 1.55;
+        color: #3d5a73;
+    }
+
+    .pwa-install-banner__actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        align-items: stretch;
+    }
+
+    .pwa-install-banner__btn {
+        border: 0;
+        border-radius: 0.85rem;
+        padding: 0.65rem 0.9rem;
+        font-weight: 700;
+        color: #fff;
+        background: #1287a0;
+        white-space: nowrap;
+    }
+
+    .pwa-install-banner__dismiss {
+        border: 0;
+        background: transparent;
+        color: #3d5a73;
+        font-size: 1.4rem;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+@media (prefers-reduced-motion: reduce) {
+    .page-enter,
+    .stagger > *,
+    .brand-mark::before,
+    .diagnosis-hero::before,
+    .alert-ok,
+    .alert-error {
+        animation: none !important;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-accent,
+    .action-tile,
+    .result-row {
+        transition: none !important;
+        transform: none !important;
+    }
+}
